@@ -47,21 +47,21 @@ class calculate(object):
 
 
 class Markovitz(calculate):
-        """Markovitz Portfolio
+    """Markovitz Portfolio
+    Args:
+        names (list, optional): stock list. Defaults to ['贵州茅台', '隆基股份'].
+        start_date (str, optional): start date. Defaults to '2019-01-01'.
+        end_date (str, optional): end date. Defaults to '2020-01-01'.
+        frequency (str, optional): frequency. Defaults to "w".
+        holiday (bool, optional): holiday mode. Defaults to False.
+        holiday_name (str, optional): holiday name. Defaults to '国庆节'.
+        before (int, optional): how many days before the holidays. Defaults to -21.
+        after (int, optional): how many days after the holidays. Defaults to 21.
+        no_risk_rate (float, optional): risk-off interest rate. Defaults to 0.0185.
+    """
 
-        Args:
-            names (list, optional): stock list. Defaults to ['贵州茅台', '隆基股份'].
-            start_date (str, optional): start date. Defaults to '2019-01-01'.
-            end_date (str, optional): end date. Defaults to '2020-01-01'.
-            frequency (str, optional): frequency. Defaults to "w".
-            holiday (bool, optional): holiday mode. Defaults to False.
-            holiday_name (str, optional): holiday name. Defaults to '国庆节'.
-            before (int, optional): how many days before the holidays. Defaults to -21.
-            after (int, optional): how many days after the holidays. Defaults to 21.
-            no_risk_rate (float, optional): risk-off interest rate. Defaults to 0.0185.
-
-        """
-    def __init__(self, names=['贵州茅台', '隆基股份'],
+    def __init__(self,
+                 names=['贵州茅台', '隆基股份'],
                  start_date='2019-01-01',
                  end_date='2020-01-01',
                  frequency="w",
@@ -70,7 +70,6 @@ class Markovitz(calculate):
                  before=-21, after=21,
                  no_risk_rate=0.0185
                  ):
-        
 
         self.svg_charts = svg_charts()
         self.sprint = sprint()
@@ -205,7 +204,7 @@ class Markovitz(calculate):
 
         Returns:
             [type]: result(dataframe or list)
-        """        
+        """
         if stock_list == []:
             stock_list = self.names
         self.sprint.magenta(f'building a portfolio for {stock_list}')
@@ -264,7 +263,7 @@ class Markovitz(calculate):
 
 
 if __name__ == '__main__':
-    Markovitz = Markovitz(names=['隆基股份', '五粮液', '贵州茅台'], 
+    Markovitz = Markovitz(names=['隆基股份', '五粮液', '贵州茅台'],
                           start_date='2019-12-01',
                           end_date='2020-12-31',
                           frequency='w',
