@@ -36,8 +36,6 @@ def get_stock_data():
         'end date',
         datetime.date(2020, 12, 31)))
     frequency = st.selectbox('frequency', ['d', 'w', 'm'])
-    #work = st.button('Start working!')
-    # if work:
     StockData = StockData(names=stock_list,
                           start_date=start_date,
                           end_date=end_date,
@@ -47,10 +45,6 @@ def get_stock_data():
     for i, j in stock_pair.items():
         i, ":", j
     stock_data
-
-    #show_chart = st.button('show charts')
-    # if show_chart:
-    #stock_name=st.selectbox('stock', stock_list)
     data = []
     for date in stock_data['date']:
         close = stock_data[stock_data['date'] == date]['close']
