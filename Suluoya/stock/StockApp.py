@@ -24,8 +24,8 @@ except:
     from log.SlyLog import sprint
 
 
-
 st.title('Suluoya Stock')
+
 
 def get_stock_data():
     global StockData
@@ -39,23 +39,25 @@ def get_stock_data():
         datetime.date(2020, 12, 31)))
     frequency = st.selectbox('frequency', ['d', 'w', 'm'])
     #work = st.button('Start working!')
-    #if work:
-    StockData=StockData(names=stock_list,
-                        start_date=start_date,
-                        end_date=end_date,
-                        frequency=frequency)
-    codes, stock_pair, stock_data = StockData.stock_data
+    # if work:
+    StockData = StockData(names=stock_list,
+                          start_date=start_date,
+                          end_date=end_date,
+                          frequency=frequency)
+    stock_pair, stock_data = StockData.stock_data[1:]
     StockData.quit()
-    for i,j in stock_pair.items():
-        i,":",j
+    for i, j in stock_pair.items():
+        i, ":", j
     stock_data
-    
+
     #show_chart = st.button('show charts')
-    #if show_chart:
+    # if show_chart:
     #stock_name=st.selectbox('stock', stock_list)
-    data=[]
+    data = []
     for date in stock_data['date']:
-        close=stock_data[stock_data['date']==date]['close']
+        close = stock_data[stock_data['date'] == date]['close']
         data.append(list(close))
-    line_chart=st.line_chart(pd.DataFrame(data,columns=stock_list))
+    st.line_chart(pd.DataFrame(data, columns=stock_list))
+
+
 get_stock_data()
