@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf8') as fh:
 
 setuptools.setup(
     name="Suluoya",
-    version="2.0.5",
+    version="2.0.6",
     author="Suluoya",
     author_email="1931960436@qq.com",
     maintainer='Suluoya',
@@ -18,7 +18,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OSIndependent",
+        "Operating System :: OS Independent",
     ],
     install_requires=['requests',  # 爬虫
                       'pandas',  # 数据分析
