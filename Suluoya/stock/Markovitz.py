@@ -11,11 +11,12 @@ from tqdm import tqdm, trange
 
 sys.path.append(os.path.dirname(__file__) + os.sep + '../')
 try:
+    from ..chart.html_charts import html_charts
     from ..chart.svg_charts import svg_charts
     from ..log.SlyLog import slog, sprint
     from .GetData import HolidayStockData, StockData
 except:
-    from chart.svg_charts import svg_charts
+    from chart.html_charts import html_charts
     from log.SlyLog import slog, sprint
     from GetData import HolidayStockData, StockData
 
@@ -71,7 +72,7 @@ class Markovitz(calculate):
                  no_risk_rate=0.0185
                  ):
 
-        self.svg_charts = svg_charts()
+        self.html_charts = html_charts()
         self.sprint = sprint()
         self.slog = slog('Markovitz ')
         self.frequency = frequency
@@ -142,16 +143,14 @@ class Markovitz(calculate):
                 for i in self.names:
                     data[i] = list(
                         self.stock_data[self.stock_data['name'] == i]['close'])
-                line = self.svg_charts.line(x=date, data=data, title='close', x_title='date',
-                                            y_title='close price', x_label_rotation=90, print_values=False)
-                self.svg_charts.save(line, path="picture\\close")
+                line = self.html_charts.line(x=date, y=data)
+                self.html_charts.save(line, path="picture\\close")
                 data = {}
                 for i in self.names:
                     data[i] = list(
                         self.stock_data[self.stock_data['name'] == i]['pctChg'])
-                line = self.svg_charts.line(x=date, data=data, title='pctChg', x_title='date',
-                                            y_title='pctChg', x_label_rotation=90, print_values=False)
-                self.svg_charts.save(line, path="picture\\pctChg")
+                line = self.html_charts.line(x=date, y=data)
+                self.html_charts.save(line, path="picture\\pctChg")
                 break
 
     def sharp(self, weights=[], stock_list=[]):
@@ -228,8 +227,8 @@ class Markovitz(calculate):
             for i in stock_list:
                 result[i] = ans[count]
                 count += 1
-            pie = self.svg_charts.pie(weights=result, title='weights-pie')
-            self.svg_charts.save(pie, path='picture\\weights-pie')
+            pie = self.html_charts.pie(weights=result)
+            self.html_charts.save(pie, path='picture\\weights-pie')
             result = [result, -opts['fun']]
             self.slog.log(f'weights:{result[0]}\nsharp:{result[1]}')
             df = pd.DataFrame([result], columns=['weights', 'sharp'])
@@ -246,16 +245,17 @@ class Markovitz(calculate):
             df = pd.DataFrame(
                 lists, columns=['sharp', 'rate', 'risk', 'weight'])
             df = df.sort_values('sharp', ascending=False)
-            data = []
+            risk = []
+            rate={'sharp':[]}
             for i, j in df.iterrows():
-                data.append((j[2], j[1]))
-            scatter = self.svg_charts.scatter(
-                data={'': data}, title='sharp-scatter', x_title='risk', y_title='rate of return')
-            self.svg_charts.save(scatter, path='picture\\sharp-scatter')
+                risk.append(j[2])
+                rate['sharp'].append(j[1])
+            scatter = self.html_charts.effect_scatter(x=risk,y=rate)
+            self.html_charts.save(scatter, path='picture\\sharp-scatter')
             weights = list(df['weight'])[0]
             sharp = list(df['sharp'])[0]
-            pie = self.svg_charts.pie(weights=weights, title='weights-pie')
-            self.svg_charts.save(pie, path='picture\\weights-pie')
+            pie = self.html_charts.pie(weights=weights)
+            self.html_charts.save(pie, path='picture\\weights-pie')
             self.slog.log(f'weights:{weights}\nsharp:{sharp}')
             df.to_csv('result\\not_accurate_result.csv',
                       index=False, encoding='utf8')
@@ -269,4 +269,4 @@ if __name__ == '__main__':
                           frequency='w',
                           holiday=False,
                           )
-    print(Markovitz.portfolio(accurate=False,))
+    print(Markovitz.portfolio(accurate=True,))
