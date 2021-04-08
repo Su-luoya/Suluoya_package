@@ -22,8 +22,8 @@ def GetGoodStock(page=5):
         params = {
             "op": "ph",
             "sc": "6yzf",
-            "sd": '2021-02-11',
-            "ed": '2021-02-11',
+            "sd": '2021-03-11',
+            "ed": '2021-03-11',
             "pi": str(page),
             "dx": "1",
         }
@@ -53,7 +53,7 @@ def GetGoodStock(page=5):
             executor.submit(main, url)
     stock = pd.concat(stocks)
     stock['持仓占比'] = stock['持仓占比'].map(lambda x: x.replace('%', ''))
-    stock = stock.replace('暂无数据',0) 
+    stock = stock.replace('暂无数据', 0)
     stock['持仓占比'] = stock['持仓占比'].astype('float')
     group = stock.groupby('股票名称')
     df1 = group.mean()
@@ -65,6 +65,6 @@ def GetGoodStock(page=5):
     #df.to_csv('goodstocks.csv', encoding='utf8')
     return df
 
+
 if __name__ == '__main__':
     GetGoodStock()
-    
