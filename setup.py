@@ -5,12 +5,12 @@ with open("README.md", "r", encoding='utf8') as fh:
 
 setuptools.setup(
     name="Suluoya",
-    version="2.0.7",
+    version="2.0.8",
     author="Suluoya",
     author_email="1931960436@qq.com",
     maintainer='Suluoya',
     maintainer_email='1931960436@qq.com',
-    description="Suluoya",
+    description="A package called Suluoya.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pypa/sampleproject",
@@ -56,5 +56,6 @@ setuptools.setup(
                       # 'pdfplumber',  # pdf提取
                       # 'jieba',  # 分词
                       # 'python-docx',  # word提取
+                      # 'zhconv',  # 繁体简体转换
                       ]
 )

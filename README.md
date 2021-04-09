@@ -480,7 +480,24 @@ st.heart
 st=st('Suluoya','苏洛雅')
 st.voice
 ```
-### (8)file statistics
+### (8)traditional Chinese to simplified Chinese
+
+```python
+# pip install zhconv
+st=st('開放中文轉換')
+result=st.traditional_simplified_chinese(mode='zh-hans')
+print(result)
+'''
+zh-cn 大陆简体
+zh-tw 台灣正體
+zh-hk 香港繁體
+zh-sg 马新简体
+zh-hans 简体
+zh-hant 繁體
+'''
+```
+
+### (9)file statistics
 
 ##### word frequency statistics
 

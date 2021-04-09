@@ -53,3 +53,22 @@ class SlyText(object):
         for i in self.text:
             engine.say(i)
             engine.runAndWait()
+    
+    def traditional_simplified_chinese(self,mode='zh-hans'):
+        '''
+        zh-cn 大陆简体
+        zh-tw 台灣正體
+        zh-hk 香港繁體
+        zh-sg 马新简体
+        zh-hans 简体
+        zh-hant 繁體
+        '''
+        from zhconv import convert
+        result=[]
+        for i in self.text:
+            result.append(convert(i,mode))
+        return result
+
+if __name__ == '__main__': 
+    st=SlyText('開放中文轉換（Pure Python）')
+    print(st.traditional_simplified_chinese())

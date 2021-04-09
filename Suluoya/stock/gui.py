@@ -1,5 +1,5 @@
 class StockGui(object):
-    
+
     def __init__(self):
         import PySimpleGUI as sg
         self.sg = sg
