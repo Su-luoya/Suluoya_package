@@ -328,6 +328,44 @@ scatter = chart.scatter(name='scatter',
 chart.save(chart=line, path='render')
 ```
 
+### (3)app charts 
+
+```python
+# pip install cufflinks, chart_studio
+from Suluoya.chart import app_charts
+ac = app_charts(theme='white') # solor, pearl, white
+
+ac.bar(df=pd.DataFrame(np.random.rand(12, 4), columns=['a', 'b', 'c', 'd']),
+       mode='stack', # group, stack, overlay
+       sort=False # TrueSort bars in descending order
+      )
+
+ac.scatter(df=pd.DataFrame(np.random.rand(100, 2), columns=['a', 'b']),
+           data=None, # data=np.random.rand(100,2) --> try 1 try
+           xlabel='x', 
+           ylabel='y', 
+           mode='markers', # lines, markers, lines+markers, lines+text,                                        markers+text, lines+markers+text
+           size=5)
+
+ac.line(df=pd.DataFrame(np.random.rand(100, 2), columns=['a', 'b']),
+        subplots=False,
+        share_xaxis=False)
+
+ac.scatter3d(df=pd.DataFrame({'x': np.random.rand(9),
+                              'y': np.random.rand(9),
+                              'z': np.random.rand(9),
+                              'text': range(1, 10),
+                              'categories': ['c1', 'c2', 'c3', 'c1', 'c2', 'c3', 'c1', 'c2', 'c3']}))
+
+ac.scatter_matrix(df=pd.DataFrame(np.random.randn(100, 3), columns=['a', 'b', 'c', ]))
+
+ac.pie(df=pd.DataFrame([['a', 2], ['b', 5], ['c', 3]], columns=['class', 'weight']))
+
+ac.histogram(df=pd.DataFrame(np.random.rand(100, 2), columns=['a', 'b']))
+
+ac.box(df=pd.DataFrame(np.random.rand(100, 2), columns=['a', 'b']))
+```
+
 ## 4. Crawl
 
 ### (1)crawl
