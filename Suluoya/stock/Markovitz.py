@@ -247,9 +247,9 @@ class Markovitz(calculate):
             df = df.sort_values('sharp', ascending=False)
             risk = []
             rate={'sharp':[]}
-            for i, j in df.iterrows():
-                risk.append(j[2])
-                rate['sharp'].append(j[1])
+            for j in df.itertuples():
+                risk.append(getattr(j,'risk'))
+                rate['sharp'].append(getattr(j,'rate'))
             scatter = self.html_charts.effect_scatter(x=risk,y=rate)
             self.html_charts.save(scatter, path='picture\\sharp-scatter')
             weights = list(df['weight'])[0]
@@ -269,4 +269,4 @@ if __name__ == '__main__':
                           frequency='w',
                           holiday=False,
                           )
-    print(Markovitz.portfolio(accurate=True,))
+    print(Markovitz.portfolio(accurate=False,))

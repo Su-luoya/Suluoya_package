@@ -6,19 +6,13 @@ import time
 
 import numpy as np
 import pandas as pd
-import pretty_errors
 import streamlit as st
 from tqdm import tqdm, trange
 
 sys.path.append(os.path.dirname(__file__) + os.sep + '../')
 try:
-    from ..chart.svg_charts import svg_charts
-    from ..log.SlyLog import slog, sprint
     from .GetData import HolidayStockData, StockData
 except:
-    from chart.svg_charts import svg_charts
-    from log.SlyLog import slog, sprint
-
     from GetData import HolidayStockData, StockData
 
 

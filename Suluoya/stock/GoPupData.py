@@ -9,31 +9,32 @@ try:
     from ..log.SlyLog import sprint
 except:
     from log.SlyLog import sprint
+
+
 class Macroeconomic(object):
-    
+
     def __init__(self):
-        self.token='4438684c9995613c2637de7c3264c455'
         import gopup as gp
-        self.gp=gp
-        self.g = self.gp.pro_api(token = self.token)
+        self.gp = gp
+        self.g = self.gp.pro_api(token='4438684c9995613c2637de7c3264c455')
         self.sprint = sprint()
-    
-    @property
-    def exchange_rate(self,currency_list=['美元','欧元'],
-                    start_date='20201010',end_date='20201015'):
+
+    def exchange_rate(self, currency_list=['美元', '欧元'],
+                      start_date='20201010', end_date='20201015'):
         '''
         汇率
         美元、欧元、日元、英镑、卢布、韩元、澳元、加元、泰铢、港币、台币、新币
         '''
-        date_range=pd.date_range(start_date, end_date, freq='1D')
-        lists=[]
+        date_range = pd.date_range(start_date, end_date, freq='1D')
+        lists = []
         self.sprint.blue('getting exchange rate data...')
         for date in tqdm(date_range):
             for currency in currency_list:
-                df = self.g.exchange_rate(date=str(date.date()), currency=currency)
+                df = self.g.exchange_rate(
+                    date=str(date.date()), currency=currency)
                 lists.append(df)
         return pd.concat(lists)
-    
+
     @property
     def get_rrr(self):
         '''
@@ -55,5 +56,5 @@ class Macroeconomic(object):
 
 
 if __name__ == '__main__':
-    mc=Macroeconomic()
+    mc = Macroeconomic()
     print(mc.get_rrr)

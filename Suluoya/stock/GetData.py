@@ -24,7 +24,7 @@ class StockData(object):
         start_date (str, optional): start date. Defaults to '2020-12-01'.
         end_date (str, optional): end date. Defaults to '2020-12-31'.
         frequency (str, optional): frequency. Defaults to "w".
-    """        
+    """
 
     def __init__(self, names=['贵州茅台', '隆基股份'],
                  start_date='2020-12-01', end_date='2020-12-31',
@@ -194,7 +194,7 @@ class HolidayStockData(object):
             data = StockData.stock_data
             result.append(data[2])
         df = pd.concat(result)
-        #StockData.quit()
+        # StockData.quit()
         self.sprint.show()
         if self.cache == True:
             df.to_csv(f'cache\\{self.names}.csv', encoding='utf8', index=False)
@@ -234,8 +234,8 @@ class ConstituentStock(object):
             for name in names:
                 x = result[result['code_name'] == name]
                 lists.append(x)
-                for i, j in x.iterrows():
-                    for k in j:
+                for j in x.itertuples():
+                    for k in j[1:]:
                         self.slog.log(k, mode=2)
                     self.slog.log('')
 
