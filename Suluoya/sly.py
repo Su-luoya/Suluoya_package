@@ -1,6 +1,6 @@
 
 
-def QRcode(content='I Love Suluoya!', name='QRcode'):
+def QRcode(content='Welcome to use Suluoya!', name='QRcode'):
     from MyQR import myqr
     myqr.run(words=content, save_name=name+'.png')
 

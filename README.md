@@ -264,21 +264,21 @@ LIGHT,DARK,CHALK,ESSOS,INFOGRAPHIC,MACARONS,PURPLE_PASSION,ROMA,ROMANTIC,SHINE,V
 x = ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
 y = {"商家A": [5, 20, 36, 10, 75, 90], "商家B": [6, 18, 34, 12, 55, 96]}
 
-pie = chart.pie(weights={'A': 1, 'B': 2, 'C': 3})
+pie = chart.pie(weights={'A': 1, 'B': 2, 'C': 3}, label=True)
 
 bar = chart.bar(x=x, y=y,
                 reverse=False,  # 坐标轴翻转
                 pictorial=False,  # 象形柱状图
-                )
+                , label=True)
 
-scatter = chart.scatter(x=x, y=y)
+scatter = chart.scatter(x=x, y=y, label=False)
 
-effect_scatter = chart.effect_scatter(x=x, y=y)
+effect_scatter = chart.effect_scatter(x=x, y=y, label=False)
 
 line = chart.line(x=x, y=y,
                   smooth=False,  # 曲线是否平滑
                   step=False,  # 阶梯形状
-                  )
+                  , label=True)
 
 barline = chart.barline(x=x, y_bar=y, y_line=y)
 
@@ -499,11 +499,12 @@ zh-hant 繁體
 
 ### (9)file statistics
 
-##### word frequency statistics
+word frequency statistics
 
 ```python
-from Suluoya.text import file_statistics as fc
-fc()
+# pip install jieba, pdfplumber, python-docx, zhon
+from Suluoya.text import file_statistics as fs
+fs()
 ```
 
 ## 7. DataFrame
@@ -521,7 +522,8 @@ print(sdf.df)
 ### (2)report
 
 ```python
-sdf.report # pip install pandas_profiling
+# pip install pandas_profiling
+sdf.report
 #This will make a html,just look for and open it!
 ```
 
@@ -557,6 +559,7 @@ print(a)
 Currently support 'doc','docx','ppt','pptx','txt'
 
 ```python
+# pip install textract
 import Suluoya as sly
 content = sly.get_content(file=r'c:\lalala\1.docx')
 print(content)

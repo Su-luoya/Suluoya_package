@@ -202,8 +202,7 @@ class html_charts(object):
         chart.overlap(chart)
         return chart
 
-    def river(self, x=["DQ", "TY"], y=[["2015/11/08", 10, "DQ"], ["2015/11/09", 15, "DQ"], ["2015/11/10", 35, "DQ"], ["2015/11/08", 35, "TY"], ["2015/11/09", 36, "TY"], ["2015/11/10", 37, "TY"], ],
-              label=True):
+    def river(self, x=["DQ", "TY"], y=[["2015/11/08", 10, "DQ"], ["2015/11/09", 15, "DQ"], ["2015/11/10", 35, "DQ"], ["2015/11/08", 35, "TY"], ["2015/11/09", 36, "TY"], ["2015/11/10", 37, "TY"], ],):
         from pyecharts.charts import ThemeRiver
         chart = ThemeRiver(init_opts=self.init_opts)
         chart.set_global_opts(toolbox_opts=self.toolbox_opts,datazoom_opts=self.DataZoomOpts,)
