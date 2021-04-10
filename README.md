@@ -333,6 +333,9 @@ chart.save(chart=line, path='render')
 ```python
 # pip install cufflinks, chart_studio
 from Suluoya.chart import app_charts
+import numpy as np
+import pandas as pd
+
 ac = app_charts(theme='white') # solor, pearl, white
 
 ac.bar(df=pd.DataFrame(np.random.rand(12, 4), columns=['a', 'b', 'c', 'd']),
