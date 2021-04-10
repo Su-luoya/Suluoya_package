@@ -2,7 +2,7 @@
 
 ### This is a package written by Suluoya not just for fun!
 
-------
+---
 
 ## Upgrade Suluoya
 
@@ -45,7 +45,7 @@ slog.log(content='Suluoya', mode=0)
 
 ## 2. Stock
 
-###                                            **surprise**!
+### **surprise**!
 
 ```python
 from Suluoya.stock import gui
@@ -169,7 +169,7 @@ mode = list -->
 '''
 ```
 
-### (3) Markovitz 
+### (3) Markovitz
 
 #### 1. initialize
 
@@ -328,7 +328,7 @@ scatter = chart.scatter(name='scatter',
 chart.save(chart=line, path='render')
 ```
 
-### (3)app charts 
+### (3)app charts
 
 ```python
 # pip install cufflinks, chart_studio
@@ -491,13 +491,13 @@ print(text_compare)
 
 ### (5)sentiment
 
-To download the necessary data, 
+To download the necessary data,
 
 simply run "python -m textblob.download_corpora" before using it,
 
 if something goes wrong,
 
-then click http://mtw.so/5PIAuz, http://mtw.so/5AGaDp or http://mtw.so/5PIAyL 
+then click http://mtw.so/5PIAuz, http://mtw.so/5AGaDp or http://mtw.so/5PIAyL
 
 ```python
 
@@ -507,6 +507,7 @@ st = st('hello','sad')
 sentiment = st.sentiment(language='E')
 print(sentiment)
 ```
+
 ### (6)draw a heart
 
 ```python
@@ -521,6 +522,7 @@ st.heart
 st=st('Suluoya','苏洛雅')
 st.voice
 ```
+
 ### (8)traditional Chinese to simplified Chinese
 
 ```python
@@ -584,7 +586,6 @@ sdf.sweetviz
 ```
 
 ## 8. Others
-
 
 ### (1)If you wanna get text from your clipboard...
 

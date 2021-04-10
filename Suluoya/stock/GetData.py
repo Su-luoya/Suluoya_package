@@ -69,9 +69,9 @@ class StockData(object):
         for i, j in df[['code', 'code_name', 'ipoDate']].iterrows():
             if j[2] >= self.start_date:
                 self.sprint.red(
-                    f"{j[1]}'s ipo date is {j[2]},which is after {self.start_date}.\nPlease check your start date!")
-                raise ValueError(
-                    "The start date should be after the ipo date!")
+                    f"{j[1]}'s ipo date is {j[2]},which is after {self.start_date}.")
+                #raise ValueError(
+                #    "The start date should be after the ipo date!")
             stocks[j[1]] = j[0]
             self.slog.log(f'{j[1]}——{j[0]}', mode=1)
         return stocks  # {'贵州茅台': 'sh.600519', '隆基股份': 'sh.601012'}
@@ -564,9 +564,11 @@ class StockAbility(object):
 
 
 if __name__ == '__main__':
-    #StockData = StockData(names=['d'],cache=True)
+    StockData = StockData(names=['隆基股份'],
+                 start_date='2001-12-01', end_date='2020-12-31',
+                 frequency="w")
     # print(StockData.stock_pair)
     # HolidayStockData=HolidayStockData()
     # print(HolidayStockData.HolidayNearbyData)
-    cs = ConstituentStock()
-    print(cs.StockIndustry(names=['五粮液', '贵州茅台']))
+    #cs = ConstituentStock()
+    print(StockData.stock_data)
