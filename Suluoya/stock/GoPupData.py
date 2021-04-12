@@ -57,4 +57,4 @@ class Macroeconomic(object):
 
 if __name__ == '__main__':
     mc = Macroeconomic()
-    print(mc.get_rrr)
+    mc.get_rrr.to_excel('rate.xlsx',encoding='utf8')

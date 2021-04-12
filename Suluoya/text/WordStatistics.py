@@ -188,7 +188,11 @@ def gui():
 
 
 def file_guess(filename):
-    return re.findall(r'\.(.*)', filename)[0]
+    try:
+        return re.findall(r'\.(.*)', filename)[0]
+    except:
+        print(filename+'error')
+        return None
 
 
 def file_statistics():
@@ -204,7 +208,7 @@ def file_statistics():
     for i in target:
         jieba.add_word(i)
     filenames = get_files(path)
-    for filename in filenames:
+    for filename in tqdm(filenames):
         f = file_guess(filename)
         if f == 'pdf' or f == 'PDF':
             try:
