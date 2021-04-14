@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf8') as fh:
 
 setuptools.setup(
     name="Suluoya",
-    version="2.1.3",
+    version="2.1.4",
     author="Suluoya",
     author_email="1931960436@qq.com",
     maintainer='Suluoya',
