@@ -464,7 +464,7 @@ class StockGui(object):
             df = fc.statement(mode='资产负债表')
         elif event == 'profit':
             df = fc.statement(mode='利润表')
-        df.to_excel(f'{event}-{stock_list}--{start_year}.{start_quater}-{end_year}.{end_quater}.xlsx',
+        df.to_excel(f'path\\{event}-{stock_list}--{start_year}.{start_quater}-{end_year}.{end_quater}.xlsx',
                     encoding='utf8', index=False)
 
     def FinancialStatementsWork(self):
