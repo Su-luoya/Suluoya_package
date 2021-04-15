@@ -131,7 +131,20 @@ print(sa.dupont_data)  # 杜邦指数
 print(sa.AllAbility)  # above all
 ```
 
-#### 4. Stock Industry and Constituent Stock
+#### 4. Financial Statement
+
+Reference : http://mtw.so/6s2ayD
+
+```python
+from Suluoya.stock import FinancialStatements
+fc = FinancialStatements(names=['贵州茅台', '隆基股份'],
+                  start_year=2018, start_quater=1,
+                  end_year=2019, end_quater=4)
+print(fc.statement(mode='利润表')) 
+# '利润表' or '现金流量表' or '资产负债表'
+```
+
+#### 5. Stock Industry and Constituent Stock
 
 ```python
 from Suluoya.stock import ConstituentStock

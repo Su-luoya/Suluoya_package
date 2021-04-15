@@ -2,6 +2,7 @@ class StockGui(object):
 
     def __init__(self):
         import PySimpleGUI as sg
+        import pretty_errors
         self.sg = sg
         self.sg.theme('BlueMono')
         layout = [
@@ -10,6 +11,7 @@ class StockGui(object):
             [self.sg.Button('Get Stock Data')],
             [self.sg.Button('Get Stock Capacity')],
             [self.sg.Button('Stock Industry and Constituent Stock')],
+            [self.sg.Button('Financial Statement')]
         ]
         self.window = self.sg.Window('Suluoya Stock', layout)
         self.event, self.values = self.window.read()
@@ -415,6 +417,61 @@ class StockGui(object):
             self.window.close()
             self.GoodStockGui()
 
+    def FinancialStatementsGui(self):
+        layout = [
+            [self.sg.Text('Stock List')],
+            [self.sg.Multiline('贵州茅台\n隆基股份\n五粮液', key='stock_list')],
+
+            [self.sg.Text('        start                 end')],
+            [self.sg.Text('  year    quater    year    quater')],
+            [self.sg.Combo(values=[str(i) for i in range(2011, 2020)], default_value=2018, key='start_year'),
+             self.sg.Combo(values=[str(i) for i in range(
+                 1, 5)], default_value=1, key='start_quater'),
+             self.sg.Combo(values=[str(i) for i in range(
+                 2011, 2020)], default_value=2019, key='end_year'),
+             self.sg.Combo(values=[str(i) for i in range(1, 5)], default_value=4, key='end_quater')],
+
+            [self.sg.FolderBrowse('choose a folder to save data', key='path')],
+
+            [self.sg.Button('cash flow'), self.sg.Button(
+                'balance'), self.sg.Button('profit')],
+        ]
+        window = self.sg.Window('Suluoya Stock Capacity', layout)
+        event, values = window.read()
+        if event == 'Cancel' or event is None:
+            window.close()
+            return 'Quit'
+        window.close()
+        path = values['path']
+        if path == '':
+            raise ValueError('Please choose a folder to save data!')
+        start_year = int(values['start_year'])
+        end_year = int(values['end_year'])
+        start_quater = int(values['start_quater'])
+        end_quater = int(values['end_quater'])
+        stock_list = values['stock_list'].rstrip().split('\n')
+        try:
+            from .FinancialStatement import FinancialStatements
+        except:
+            from FinancialStatement import FinancialStatements
+
+        fc = FinancialStatements(names=stock_list,
+                                 start_year=start_year, start_quater=start_quater,
+                                 end_year=end_year, end_quater=end_quater)
+        if event == 'cash flow':
+            df = fc.statement(mode='现金流量表')
+        elif event == 'balance':
+            df = fc.statement(mode='资产负债表')
+        elif event == 'profit':
+            df = fc.statement(mode='利润表')
+        df.to_excel(f'{event}-{stock_list}--{start_year}.{start_quater}-{end_year}.{end_quater}.xlsx',
+                    encoding='utf8', index=False)
+
+    def FinancialStatementsWork(self):
+        if self.event == 'Financial Statement':
+            self.window.close()
+            self.FinancialStatementsGui()
+
 
 def gui():
     """stock gui
@@ -426,7 +483,8 @@ def gui():
         b = sg.StockDataWork()
         d = sg.StockIndustryWork()
         e = sg.GoodStockWork()
-        if a == None and b == None and c == None and d == None and e == None:
+        f = sg.FinancialStatementsWork()
+        if a == None and b == None and c == None and d == None and e == None and f == None:
             break
 
 
