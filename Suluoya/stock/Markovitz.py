@@ -138,13 +138,11 @@ class Markovitz(calculate):
                         self.codes, self.stock_pair, self.stock_data = self.HolidayStockData.HolidayNearbyData
                     except:
                         raise ValueError('data get error, please retry!')
-                date = list(set(list(self.stock_data['date'])))
-                data = {}
+                date = self.stock_data[['date']].drop_duplicates().values.tolist()
                 for i in self.names:
-                    data[i] = list(
-                        self.stock_data[self.stock_data['name'] == i]['close'])
-                line = self.html_charts.line(x=date, y=data)
-                self.html_charts.save(line, path="picture\\close")
+                    k_data=self.stock_data[self.stock_data['name'] == i][['open','close','low','high']].values.tolist()
+                    kline=self.html_charts.kline(x=date,data=k_data)
+                    self.html_charts.save(kline, path=f"picture\\{i}-kline")
                 data = {}
                 for i in self.names:
                     data[i] = list(

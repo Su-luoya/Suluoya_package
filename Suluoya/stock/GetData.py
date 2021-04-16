@@ -77,7 +77,7 @@ class StockData(object):
         return stocks  # {'贵州茅台': 'sh.600519', '隆基股份': 'sh.601012'}
 
     @property
-    def stock_data(self, info="date,code,open,close,volume,amount,adjustflag,turn,pctChg"):
+    def stock_data(self, info="date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg"):
 
         stock_pair = self.stock_pair
         codes = list(stock_pair.values())
@@ -96,8 +96,8 @@ class StockData(object):
             result['name'] = Name[i]
             lists.append(result)
         df = pd.concat(lists)
-        df = df[['date', 'name', 'code', 'open', 'close',
-                 'volume', 'amount', 'adjustflag', 'turn', 'pctChg']]
+        #df = df[['date', 'name', 'code', 'open', 'close',
+        #         'volume', 'amount', 'adjustflag', 'turn', 'pctChg']]
         df = df.apply(pd.to_numeric, errors='ignore')
         if self.cache == True:
             df.to_csv(f'cache\\{self.names}.csv', encoding='utf8', index=False)

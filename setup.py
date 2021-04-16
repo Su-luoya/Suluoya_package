@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf8') as fh:
 
 setuptools.setup(
     name="Suluoya",
-    version="2.1.5",
+    version="2.1.6",
     author="Suluoya",
     author_email="1931960436@qq.com",
     maintainer='Suluoya',
@@ -29,10 +29,10 @@ setuptools.setup(
                       # 'MyQR', # 二维码
                       # 'pyforest', # 自动导入库
                       # 'wget', # 下载
-                      'urllib3',  # 爬虫
+                      #'urllib3',  # 爬虫
                       # 'you-get', # 下载视频
                       # 'goose3', # 文章提取
-                      'parsel',  # 爬虫解析
+                      #'parsel',  # 爬虫解析
                       # 'pandas_profiling == 2.9.0', # 报告
                       # 'flashtext', # 关键词查找与替换
                       # 'textblob', # 英文情感
@@ -49,7 +49,7 @@ setuptools.setup(
                       # 'pandasgui', # 可视化界面
                       # 'sweetviz', # 数据分析
                       'pyecharts',  # 图
-                      'pygal',  # 矢量图
+                      #'pygal',  # 矢量图
                       # 'cutecharts',  # 超可耐的图
                       'pysimplegui',  # gui
                       # 'zhon',  # 中文
