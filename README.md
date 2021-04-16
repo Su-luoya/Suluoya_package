@@ -2,7 +2,7 @@
 
 ### This is a package written by Suluoya not just for fun!
 
----
+[TOC]
 
 ## Upgrade Suluoya
 
