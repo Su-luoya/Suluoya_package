@@ -91,13 +91,19 @@ class FinancialStatements(object):
     def request(self, url, params):
         response = requests.get(url, headers=self.headers, params=params)
         response.encoding = response.apparent_encoding
-        return json.loads(response.text)
+        try:
+            return json.loads(response.text)
+        except:
+            pass
 
     def get_data(self, mode='利润表'):
         for params in tqdm(self.params_list()):
             data = self.request(url=self.url_mode[mode], params=params)
-            for i in data['data']:
-                yield i
+            try:
+                for i in data['data']:
+                    yield i
+            except:
+                pass
 
     def profit_data(self, mode='利润表'):
         pass
@@ -168,17 +174,21 @@ class FinancialStatements(object):
         """
         result = []
         flag = False
+        columns = False
         for i in self.get_data(mode=mode):
             if not flag:
                 columns = i.keys()
                 flag = True
             result.append(i)
-        df = pd.DataFrame(result, columns=columns)
-        return df
+        if not columns:
+            raise ValueError('No data!\nPlease check your date or stock list!')
+        else:
+            df = pd.DataFrame(result, columns=columns)
+            return df
 
 
 if __name__ == '__main__':
-    fc = FinancialStatements(start_year=2018, start_quater=1,
-                             end_year=2019, end_quater=4)
-    # fc.get_profit_data()
+    fc = FinancialStatements(names=['贵州茅台', '隆基股份'],
+                             start_year=2000, start_quater=1,
+                             end_year=2020, end_quater=4)
     fc.statement().to_csv('temp.csv', encoding='utf8', index=False)

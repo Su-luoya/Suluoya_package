@@ -424,11 +424,11 @@ class StockGui(object):
 
             [self.sg.Text('        start                 end')],
             [self.sg.Text('  year    quater    year    quater')],
-            [self.sg.Combo(values=[str(i) for i in range(2011, 2020)], default_value=2018, key='start_year'),
+            [self.sg.Combo(values=[str(i) for i in range(2000, 2020)], default_value=2018, key='start_year'),
              self.sg.Combo(values=[str(i) for i in range(
                  1, 5)], default_value=1, key='start_quater'),
              self.sg.Combo(values=[str(i) for i in range(
-                 2011, 2020)], default_value=2019, key='end_year'),
+                 2000, 2020)], default_value=2019, key='end_year'),
              self.sg.Combo(values=[str(i) for i in range(1, 5)], default_value=4, key='end_quater')],
 
             [self.sg.FolderBrowse('choose a folder to save data', key='path')],
