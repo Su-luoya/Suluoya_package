@@ -14,7 +14,9 @@
       - [2. Holiday Stock Data](#2-holiday-stock-data)
       - [3. Quarterly Stock Capacity Data](#3-quarterly-stock-capacity-data)
       - [4. Financial Statement](#4-financial-statement)
-      - [5. Stock Industry and Constituent Stock](#5-stock-industry-and-constituent-stock)
+      - [5. Company Information](#5-Company Information)
+      - [6. Stock Industry and Constituent Stock](#6-stock-industry-and-constituent-stock)
+      - [7. Comparison](#7-Comparison)
     + [(3)calculate](#-3-calculate)
       - [1. Correlation Coefficient](#1-correlation-coefficient)
       - [2. Random Weight](#2-random-weight)
@@ -198,7 +200,17 @@ print(fc.statement(mode='利润表'))
 # '利润表' or '现金流量表' or '资产负债表'
 ```
 
-#### 5. Stock Industry and Constituent Stock
+#### 5. Company Information
+
+Reference : http://mtw.so/5YReQy
+
+```python
+from Suluoya.stock import CompanyInfo
+ci = CompanyInfo(names=['贵州茅台', '隆基股份'])
+print(ci.info())
+```
+
+#### 6. Stock Industry and Constituent Stock
 
 ```python
 from Suluoya.stock import ConstituentStock
@@ -208,6 +220,31 @@ print(cs.StockIndustry(names=['贵州茅台', '五粮液']))  # 行业分类
 print(cs.sz50)  # 上证50成分股
 print(cs.hs300)  # 沪深300成分股
 print(cs.zz500)  # 中证500成分股
+'''
+return a dataframe
+'''
+```
+
+#### 7. Comparison
+
+Reference : http://mtw.so/5uNdpO
+
+```python
+from Suluoya.stock import IndustryAnalysis
+ia = IndustryAnalysis(names=['贵州茅台', '隆基股份'])
+# 行业资讯
+print(ia.industry_info())
+# 成长性比较
+print(ia.growth_info())
+# 估值比较
+print(ia.valuation_info())
+# 杜邦分析比较
+print(ia.dupont_info())
+# 市场规模比较
+print(ia.market_size())
+'''
+return a dataframe
+'''
 ```
 
 ### (3)calculate

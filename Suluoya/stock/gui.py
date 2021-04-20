@@ -8,10 +8,13 @@ class StockGui(object):
         layout = [
             [self.sg.Button('Markovitz Portfolio')],
             [self.sg.Button('Get Good Stocks')],
+            [self.sg.Button('Company Information')],
             [self.sg.Button('Get Stock Data')],
             [self.sg.Button('Get Stock Capacity')],
             [self.sg.Button('Stock Industry and Constituent Stock')],
-            [self.sg.Button('Financial Statement')]
+            [self.sg.Button('Financial Statement')],
+            [self.sg.Button('Industry Analysis')],
+
         ]
         self.window = self.sg.Window('Suluoya Stock', layout)
         self.event, self.values = self.window.read()
@@ -436,7 +439,7 @@ class StockGui(object):
             [self.sg.Button('cash flow'), self.sg.Button(
                 'balance'), self.sg.Button('profit')],
         ]
-        window = self.sg.Window('Suluoya Stock Capacity', layout)
+        window = self.sg.Window('Suluoya Financial Statements', layout)
         event, values = window.read()
         if event == 'Cancel' or event is None:
             window.close()
@@ -472,6 +475,80 @@ class StockGui(object):
             self.window.close()
             self.FinancialStatementsGui()
 
+    def CompanyInfoGui(self):
+        layout = [
+            [self.sg.Text('Stock List')],
+            [self.sg.Multiline('贵州茅台\n隆基股份\n五粮液', key='stock_list')],
+            [self.sg.FolderBrowse('choose a folder to save data', key='path')],
+            [self.sg.Button('Start working!')]
+        ]
+        window = self.sg.Window('Suluoya Company Information', layout)
+        event, values = window.read()
+        if event == 'Cancel' or event is None:
+            window.close()
+            return 'Quit'
+        path = values['path']
+        stock_list = values['stock_list'].rstrip().split('\n')
+        window.close()
+        if path == '':
+            raise ValueError('Please choose a folder to save data!')
+        try:
+            from .Company import CompanyInfo
+        except:
+            from Company import CompanyInfo
+        CompanyInfo(names=stock_list).info().to_excel(
+            f"{path}\\{','.join(stock_list)}.xlsx", encoding='utf8', index=False)
+
+    def CompanyInfoWork(self):
+        if self.event == 'Company Information':
+            self.window.close()
+            self.CompanyInfoGui()
+
+    def IndustryAnalysisGui(self):
+        layout = [
+            [self.sg.Text('Stock List')],
+            [self.sg.Multiline('贵州茅台\n隆基股份\n五粮液', key='stock_list')],
+            [self.sg.FolderBrowse('choose a folder to save data', key='path')],
+            [self.sg.Button('Start working!')]
+        ]
+        window = self.sg.Window('Suluoya Company Information', layout)
+        event, values = window.read()
+        if event == 'Cancel' or event is None:
+            window.close()
+            return 'Quit'
+        path = values['path']
+        stock_list = values['stock_list'].rstrip().split('\n')
+        window.close()
+        if path == '':
+            raise ValueError('Please choose a folder to save data!')
+        path+=f"\\IndustryAnalysis--{','.join(stock_list)}"
+        try:
+            import os
+            os.makedirs(path)
+        except:
+            pass
+        try:
+            from .Company import IndustryAnalysis
+        except:
+            from Company import IndustryAnalysis
+        ia = IndustryAnalysis(names=stock_list)
+        info = ia.info
+        ia.industry_info(info=info).to_excel(
+            path+'/industry.xlsx', encoding='utf8', index=False)
+        ia.growth_info(info=info).to_excel(
+            path+'/growth.xlsx', encoding='utf8', index=False)
+        ia.valuation_info(info=info).to_excel(
+            path+'/valuation.xlsx', encoding='utf8', index=False)
+        ia.dupont_info(info=info).to_excel(
+            path+'/dupont.xlsx', encoding='utf8', index=False)
+        ia.market_size(info=info).to_excel(
+            path+'/market.xlsx', encoding='utf8', index=False)
+
+    def IndustryAnalysisWork(self):
+        if self.event == 'Industry Analysis':
+            self.window.close()
+            self.IndustryAnalysisGui()
+
 
 def gui():
     """stock gui
@@ -484,7 +561,9 @@ def gui():
         d = sg.StockIndustryWork()
         e = sg.GoodStockWork()
         f = sg.FinancialStatementsWork()
-        if a == None and b == None and c == None and d == None and e == None and f == None:
+        g = sg.CompanyInfoWork()
+        h = sg.IndustryAnalysisWork()
+        if a == None and b == None and c == None and d == None and e == None and f == None and g == None and h == None:
             break
 
 
