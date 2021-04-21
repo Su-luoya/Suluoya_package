@@ -146,6 +146,8 @@ stock_data --> a dataframe contained all stock data
 StockData.quit()  # Please don't forget it!
 ```
 
+![image-20210421164230418](C:\Users\19319\AppData\Roaming\Typora\typora-user-images\image-20210421164230418.png)
+
 #### 2. Holiday Stock Data
 
 ```python

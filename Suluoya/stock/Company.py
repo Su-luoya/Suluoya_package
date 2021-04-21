@@ -3,7 +3,6 @@ import os
 import sys
 
 import pandas as pd
-import parsel
 import requests
 from tqdm import tqdm
 
@@ -47,7 +46,7 @@ class CompanyInfo(object):
 
     def info(self):
         info = []
-        self.sprint.blue('getting company information...\n')
+        self.sprint.blue('getting company information...')
         for json_data in self.get_data():
             info.append(
                 (list(json_data['jbzl'].values())+list(json_data['fxxg'].values())))
@@ -85,7 +84,7 @@ class IndustryAnalysis(object):
 
     def get_data(self):
         data_list = []
-        for params in self.params_list(codes=self.codes):
+        for params in tqdm(self.params_list(codes=self.codes)):
             data_list.append(self.request(params=params))
         return data_list
 

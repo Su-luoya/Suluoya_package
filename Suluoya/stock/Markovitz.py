@@ -232,6 +232,8 @@ class Markovitz(calculate):
             df = pd.DataFrame([result], columns=['weights', 'sharp'])
             df.to_csv('result\\accurate_result.csv',
                       index=False, encoding='utf8')
+            df.to_excel('result\\accurate_result.xlsx',
+                      index=False, encoding='utf8')
             return result
         else:
             lists = []
@@ -248,13 +250,15 @@ class Markovitz(calculate):
             for j in df.itertuples():
                 risk.append(getattr(j,'risk'))
                 rate['sharp'].append(getattr(j,'rate'))
-            scatter = self.html_charts.effect_scatter(x=risk,y=rate)
-            self.html_charts.save(scatter, path='picture\\sharp-scatter')
+            scatter = self.html_charts.scatter(x=risk,y=rate)
+            self.html_charts.save(scatter, path='picture\\sharp-scatter(还是自己画吧QAQ...)')
             weights = list(df['weight'])[0]
             sharp = list(df['sharp'])[0]
             pie = self.html_charts.pie(weights=weights)
             self.html_charts.save(pie, path='picture\\weights-pie')
             self.slog.log(f'weights:{weights}\nsharp:{sharp}')
+            df.to_excel('result\\not_accurate_result.xlsx',
+                      index=False, encoding='utf8')
             df.to_csv('result\\not_accurate_result.csv',
                       index=False, encoding='utf8')
             return df
