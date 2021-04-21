@@ -46,6 +46,15 @@ class calculate(object):
                 rand[lists[i]] = weights[i]
             return list(rand.values())
 
+    def equation(self, xy=[[1, 2], [2, 3]]):
+        from sympy import Symbol, solve
+        a = Symbol('a')
+        b = Symbol('b')
+        f1 = (xy[0][0]**2)/(a**2)-(xy[0][1]**2)/(b**2)-1
+        f2 = (xy[1][0]**2)/(a**2)-(xy[1][1]**2)/(b**2)-1
+        s = solve([f1, f2], [a, b])
+        return s[0][0]**2, s[0][1]**2
+
 
 class Markovitz(calculate):
     """Markovitz Portfolio
@@ -138,10 +147,12 @@ class Markovitz(calculate):
                         self.codes, self.stock_pair, self.stock_data = self.HolidayStockData.HolidayNearbyData
                     except:
                         raise ValueError('data get error, please retry!')
-                date = self.stock_data[['date']].drop_duplicates().values.tolist()
+                date = self.stock_data[['date']
+                                       ].drop_duplicates().values.tolist()
                 for i in self.names:
-                    k_data=self.stock_data[self.stock_data['name'] == i][['open','close','low','high']].values.tolist()
-                    kline=self.html_charts.kline(x=date,data=k_data)
+                    k_data = self.stock_data[self.stock_data['name'] == i][[
+                        'open', 'close', 'low', 'high']].values.tolist()
+                    kline = self.html_charts.kline(x=date, data=k_data)
                     self.html_charts.save(kline, path=f"picture\\{i}-kline")
                 data = {}
                 for i in self.names:
@@ -233,7 +244,7 @@ class Markovitz(calculate):
             df.to_csv('result\\accurate_result.csv',
                       index=False, encoding='utf8')
             df.to_excel('result\\accurate_result.xlsx',
-                      index=False, encoding='utf8')
+                        index=False, encoding='utf8')
             return result
         else:
             lists = []
@@ -246,19 +257,24 @@ class Markovitz(calculate):
                 lists, columns=['sharp', 'rate', 'risk', 'weight'])
             df = df.sort_values('sharp', ascending=False)
             risk = []
-            rate={'sharp':[]}
+            rate = {'sharp': []}
             for j in df.itertuples():
-                risk.append(getattr(j,'risk'))
-                rate['sharp'].append(getattr(j,'rate'))
-            scatter = self.html_charts.scatter(x=risk,y=rate)
-            self.html_charts.save(scatter, path='picture\\sharp-scatter(还是自己画吧QAQ...)')
+                risk.append(getattr(j, 'risk'))
+                rate['sharp'].append(getattr(j, 'rate'))
+            scatter = self.html_charts.scatter(x=risk, y=rate)
+            self.html_charts.save(
+                scatter, path='picture\\sharp-scatter(还是自己画吧QAQ...)')
             weights = list(df['weight'])[0]
             sharp = list(df['sharp'])[0]
             pie = self.html_charts.pie(weights=weights)
             self.html_charts.save(pie, path='picture\\weights-pie')
             self.slog.log(f'weights:{weights}\nsharp:{sharp}')
+            sharp_max = list(df.iloc[0][['rate', 'risk']])
+            sharp_min = list(df.iloc[-1][['rate', 'risk']])
+            e = self.equation([sharp_max, sharp_min])
+            self.slog.log(f'hyperbolic equation\na2={e[0]}, b2={e[1]}')
             df.to_excel('result\\not_accurate_result.xlsx',
-                      index=False, encoding='utf8')
+                        index=False, encoding='utf8')
             df.to_csv('result\\not_accurate_result.csv',
                       index=False, encoding='utf8')
             return df
