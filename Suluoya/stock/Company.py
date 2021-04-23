@@ -119,7 +119,7 @@ class IndustryAnalysis(object):
             'market_size': market_size,
         }
 
-    def industry_info(self,info=None):
+    def industry_info(self, info=None):
         if info == None:
             info = self.info
         lists = []
@@ -129,7 +129,7 @@ class IndustryAnalysis(object):
                     lists.append([j, l['date'], l['title']])
         return pd.DataFrame(lists, columns=['stock', 'date', 'advisory'])
 
-    def growth_info(self,info=None):
+    def growth_info(self, info=None):
         if info == None:
             info = self.info
         lists = []
@@ -145,7 +145,7 @@ class IndustryAnalysis(object):
                 columns.append(t2+'--'+t1)
         return pd.DataFrame(lists, columns=columns)
 
-    def valuation_info(self,info=None):
+    def valuation_info(self, info=None):
         '''
         (1)MRQ市净率=上一交易日收盘价/最新每股净资产
         (2)市现率①=总市值/现金及现金等价物净增加额
@@ -171,7 +171,7 @@ class IndustryAnalysis(object):
                     lists.append(k.values())
         return pd.DataFrame(lists, columns=columns)
 
-    def dupont_info(self,info=None):
+    def dupont_info(self, info=None):
         if info == None:
             info = self.info
         T1 = ['ROE(%)', '净利率(%)', '总资产周转率(%)', '权益乘数(%)']
@@ -188,7 +188,7 @@ class IndustryAnalysis(object):
                     lists.append(k.values())
         return pd.DataFrame(lists, columns=columns)
 
-    def market_size(self,info=None):
+    def market_size(self, info=None):
         if info == None:
             info = self.info
         columns = ['排名', '代码', '简称',
@@ -200,6 +200,22 @@ class IndustryAnalysis(object):
                 for k in j:
                     lists.append(k.values())
         return pd.DataFrame(lists, columns=columns)
+
+
+class ManagementHoldings(object):
+    '''公司高管持股(不能用)
+    '''
+
+    def __init__(self, names=['贵州茅台', '隆基股份']):
+        self.names = names
+        self.codes = list(StockData(names=self.names).stock_pair.values())
+        import tushare as ts
+        ts.set_token(
+            '287812b9098691320f49c5a31cd241d341b8bdb052de60fd8e20d262')
+        self.pro = ts.pro_api()
+
+    def holdings(self):
+        return self.pro.stk_rewards(ts_code='000001.SZ,600000.SH')
 
 
 if __name__ == '__main__':
