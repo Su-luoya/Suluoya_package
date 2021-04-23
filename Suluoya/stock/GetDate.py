@@ -13,6 +13,13 @@ class GetDate(object):
         self.date = date
 
     @property
+    def trading_date(self):
+        import tushare as ts
+        ts.set_token('287812b9098691320f49c5a31cd241d341b8bdb052de60fd8e20d262')
+        pro = ts.pro_api()
+        return pro.trade_cal(exchange='', start_date=self.start, end_date=self.end)
+    
+    @property
     def holiday(self):
         series = pd.Series(
             [HolidayUtil.getHoliday(str(i)[0:10]) for i in self.date])
@@ -71,10 +78,11 @@ class GetDate(object):
         Date['year'] = self.year
         Date['dayofyear'] = self.dayofyear
         Date['weekofyear'] = self.weekofyear
+        Date['is_open'] = self.trading_date['is_open']
         return Date
 
 
 
 if __name__ == '__main__':
     gd=GetDate(start='20000101',end=None)
-    print(gd.start,gd.end,gd.date)
+    print(gd.Date)

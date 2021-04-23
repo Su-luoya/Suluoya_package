@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf8') as fh:
 
 setuptools.setup(
     name="Suluoya",
-    version="2.2.0",
+    version="2.2.1",
     author="Suluoya",
     author_email="1931960436@qq.com",
     maintainer='Suluoya',
@@ -42,6 +42,7 @@ setuptools.setup(
                       # 'textract', # 提取文档信息
                       # 'newspaper3k', # 提取新闻
                       'baostock',  # 股票数据
+                      'tushare',  # 股票数据
                       'pretty_errors',  # 打印错误
                       'termcolor',  # 彩色打印
                       # 'fake_useragent', # 伪装
