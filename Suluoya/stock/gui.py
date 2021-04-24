@@ -496,6 +496,11 @@ class StockGui(object):
             from .Company import CompanyInfo
         except:
             from Company import CompanyInfo
+        try:
+            import os
+            os.makedirs(path)
+        except:
+            pass
         CompanyInfo(names=stock_list).info().to_excel(
             f"{path}\\{','.join(stock_list)}.xlsx", encoding='utf8', index=False)
 
