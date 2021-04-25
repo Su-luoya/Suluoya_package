@@ -448,6 +448,7 @@ class StockGui(object):
         path = values['path']
         if path == '':
             raise ValueError('Please choose a folder to save data!')
+
         start_year = int(values['start_year'])
         end_year = int(values['end_year'])
         start_quater = int(values['start_quater'])
@@ -457,7 +458,11 @@ class StockGui(object):
             from .FinancialStatement import FinancialStatements
         except:
             from FinancialStatement import FinancialStatements
-
+        try:
+            import os
+            os.makedirs(path)
+        except:
+            pass
         fc = FinancialStatements(names=stock_list,
                                  start_year=start_year, start_quater=start_quater,
                                  end_year=end_year, end_quater=end_quater)
@@ -467,7 +472,7 @@ class StockGui(object):
             df = fc.statement(mode='资产负债表')
         elif event == 'profit':
             df = fc.statement(mode='利润表')
-        df.to_excel(f'path\\{event}-{stock_list}--{start_year}.{start_quater}-{end_year}.{end_quater}.xlsx',
+        df.to_excel(f'{path}\\{event}-{stock_list}--{start_year}.{start_quater}-{end_year}.{end_quater}.xlsx',
                     encoding='utf8', index=False)
 
     def FinancialStatementsWork(self):
@@ -539,15 +544,15 @@ class StockGui(object):
         ia = IndustryAnalysis(names=stock_list)
         info = ia.info
         ia.industry_info(info=info).to_excel(
-            path+'/industry.xlsx', encoding='utf8', index=False)
+            {path}+'/industry.xlsx', encoding='utf8', index=False)
         ia.growth_info(info=info).to_excel(
-            path+'/growth.xlsx', encoding='utf8', index=False)
+            {path}+'/growth.xlsx', encoding='utf8', index=False)
         ia.valuation_info(info=info).to_excel(
-            path+'/valuation.xlsx', encoding='utf8', index=False)
+            {path}+'/valuation.xlsx', encoding='utf8', index=False)
         ia.dupont_info(info=info).to_excel(
-            path+'/dupont.xlsx', encoding='utf8', index=False)
+            {path}+'/dupont.xlsx', encoding='utf8', index=False)
         ia.market_size(info=info).to_excel(
-            path+'/market.xlsx', encoding='utf8', index=False)
+            {path}+'/market.xlsx', encoding='utf8', index=False)
 
     def IndustryAnalysisWork(self):
         if self.event == 'Industry Analysis':
