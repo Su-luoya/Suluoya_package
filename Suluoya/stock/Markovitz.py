@@ -12,7 +12,7 @@ from tqdm import tqdm, trange
 sys.path.append(os.path.dirname(__file__) + os.sep + '../')
 try:
     from ..chart.html_charts import html_charts
-    from ..chart.svg_charts import svg_charts
+    #from ..chart.svg_charts import svg_charts
     from ..log.SlyLog import slog, sprint
     from .GetData import HolidayStockData, StockData
 except:

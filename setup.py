@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf8') as fh:
 
 setuptools.setup(
     name="Suluoya",
-    version="2.2.4",
+    version="2.2.5",
     author="Suluoya",
     author_email="1931960436@qq.com",
     maintainer='Suluoya',
@@ -32,7 +32,7 @@ setuptools.setup(
                       # 'urllib3',  # 爬虫
                       # 'you-get', # 下载视频
                       # 'goose3', # 文章提取
-                      # 'parsel',  # 爬虫解析
+                      'parsel',  # 爬虫解析
                       # 'pandas_profiling == 2.9.0', # 报告
                       # 'flashtext', # 关键词查找与替换
                       # 'textblob', # 英文情感
