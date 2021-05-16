@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf8') as fh:
 
 setuptools.setup(
     name="Suluoya",
-    version="2.2.5",
+    version="2.2.7",
     author="Suluoya",
     author_email="1931960436@qq.com",
     maintainer='Suluoya',
@@ -50,7 +50,7 @@ setuptools.setup(
                       # 'pandasgui', # 可视化界面
                       # 'sweetviz', # 数据分析
                       'pyecharts',  # 图
-                      # 'pygal',  # 矢量图
+                      'pygal',  # 矢量图
                       # 'cutecharts',  # 超可耐的图
                       'pysimplegui',  # gui
                       # 'zhon',  # 中文
@@ -58,5 +58,6 @@ setuptools.setup(
                       # 'jieba',  # 分词
                       # 'python-docx',  # word提取
                       # 'zhconv',  # 繁体简体转换
+                      'pypinyin',  # 拼音
                       ]
 )

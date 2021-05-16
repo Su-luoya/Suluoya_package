@@ -1,5 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import math
+
+
+
 
 
 class SlyModel(object):
@@ -75,3 +80,4 @@ class SlyModel(object):
         dt_clf.fit(self.x_train, self.y_train)
         score = dt_clf.score(self.x_test, self.y_test)
         return score
+
